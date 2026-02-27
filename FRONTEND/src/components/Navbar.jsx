@@ -1,25 +1,59 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import "../styles/Layout.css";
 
+function Navbar() {
 
-function Navbar(){
-    return(
-        <nav className="navbar">
-          <Link to="/"><div className="logo">Home</div></Link>
+  const [dark, setDark] = useState(
+    localStorage.getItem("theme") === "dark"
+  );
 
-          <Link to="Carrinho"><div className="carrinhoLink">Carrinho</div></Link>
+  useEffect(() => {
+    if (dark) {
+      document.body.classList.add("dark-mode");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.body.classList.remove("dark-mode");
+      localStorage.setItem("theme", "light");
+    }
+  }, [dark]);
 
-            <div className="darkmode">
+  return (
+    <nav className="navbar">
 
-            </div>
-            <div className="filtro">
+      <Link to="/">
+        <img src="./logo.png" alt="Logo" className="logo" />
+      </Link>
 
-            </div>
-            <div className="contato">
+      <Link to="Carrinho">
+        <img src="./carrinho.png" alt="Carrinho" className="carrinho" />
+      </Link>
 
-            </div>
-        </nav>
-    )
+      <button
+        className={`btn ${dark ? "btn-light" : "btn-dark"}`}
+        onClick={() => setDark(!dark)}
+      >
+        {dark ? "☀️" : "🌙"}
+      </button>
+
+      <div className="filtro">
+        <img src="./lupa2.png" alt="Lupa" className="lupa" />
+        <input
+          type="text"
+          placeholder="Pesquisar..."
+          id="inputPesquisar"
+        />
+      </div>
+
+      <a href="#">
+        <div className="zapzap">
+          <img src="./zapzap.png" alt="Zapzap" id="zapImg" />
+          Falar no WhatsApp
+        </div>
+      </a>
+
+    </nav>
+  );
 }
 
 export default Navbar;
