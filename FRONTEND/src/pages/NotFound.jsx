@@ -7,8 +7,10 @@ function NotFound(){
     <div id="notfound">
       <h1>Erro: 404</h1>
       <p>Página não encontrada....</p>
-      <Link to="/">Voltar para página inicial</Link>
+      <img src="./notFoundGif.gif" alt="gif" srcset=""/>
+      <span id="spanNotFound"><Link to="/">Voltar para página inicial</Link></span>
     </div>
+
     )
 }
 

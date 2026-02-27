@@ -28,7 +28,6 @@
     width: 170px;
     border: none;
     border-bottom: 2px solid black;
-    transition: 0.3s;
     margin-left: 4px;
 }
 
@@ -88,11 +87,12 @@ a{
 .dark-mode {
   background-color: #121212;
   color: #ffffff;
-  transition: all 0.3s ease;
+  transition: 0.4s ease;
 }
 
 .dark-mode .navbar {
   background-color: #474747;
+  border-bottom: 2px solid white;
 }
 
 .dark-mode .filtro{
@@ -141,3 +141,53 @@ a{
 .dark-mode .zapzap:hover img {
    filter: brightness(0%);
 }
+
+/* ----------------------------------- */
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 70px;
+  height: 36px;
+}
+
+.switch input {
+  opacity: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  background-color: #2e2e2e;
+  border-radius: 36px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transition: 0.4s;
+}
+
+.icon {
+  position: absolute;
+  height: 28px;
+  width: 28px;
+  border-radius: 50%;
+  top: 4px;
+  left: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #15b300;
+}
+
+input:checked + .slider .icon {
+  transform: translateX(34px);
+}
+
+/* ----------------------------------- */
+
+

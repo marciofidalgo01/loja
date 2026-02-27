@@ -29,12 +29,20 @@ function Navbar() {
         <img src="./carrinho.png" alt="Carrinho" className="carrinho" />
       </Link>
 
-      <button
-        className={`btn ${dark ? "btn-light" : "btn-dark"}`}
-        onClick={() => setDark(!dark)}
-      >
-        {dark ? "☀️" : "🌙"}
-      </button>
+      
+
+ <label className="switch">
+  <input
+    type="checkbox"
+    checked={dark}
+    onChange={() => setDark(!dark)}
+  />
+  <span className="slider">
+    <span className="icon">
+      {dark ? "🌙" : "☀️"}
+    </span>
+  </span>
+</label>
 
       <div className="filtro">
         <img src="./lupa2.png" alt="Lupa" className="lupa" />
@@ -44,7 +52,6 @@ function Navbar() {
           id="inputPesquisar"
         />
       </div>
-
       <a href="#">
         <div className="zapzap">
           <img src="./zapzap.png" alt="Zapzap" id="zapImg" />
