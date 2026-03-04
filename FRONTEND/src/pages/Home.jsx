@@ -1,17 +1,44 @@
-import React from "react";
+import React, { useRef } from "react";
 import heroImg from "../assets/testeHero.png";
-
 import "../components/CategorySection"
 import "../components/ProductGrid"
 import CategorySection from "../components/CategorySection";
 import ProductGrid from "../components/ProductGrid";
+import Footer from "../components/Footer";
+
 
 function Home(){
+const textRef = useRef(null);
+
+  const handleMouseMove = (e) => {
+    const { offsetWidth, offsetHeight } = textRef.current;
+    const x = e.nativeEvent.offsetX;
+    const y = e.nativeEvent.offsetY;
+
+    const rotateY = ((x / offsetWidth) - 0.5) * 25;
+    const rotateX = ((y / offsetHeight) - 0.5) * -25;
+
+    textRef.current.style.transform = `
+      perspective(600px)
+      rotateX(${rotateX}deg)
+      rotateY(${rotateY}deg)
+    `;
+  };
+
+  const resetTransform = () => {
+    textRef.current.style.transform =
+      "perspective(600px) rotateX(0deg) rotateY(0deg)";
+  };
+
+
     return(
    <div id="homeDiv">
       <div className="heroBanner"  style={{ backgroundImage: `url(${heroImg})` }}>
     <div className="divStyleBanner">
-        <h2>
+        <h2   
+        ref={textRef}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={resetTransform}>
             Seu carro merece o melhor! <span>Peças automotivas</span> de alta qualidade para diversos tipos de carros.
         </h2>
     </div>
@@ -24,7 +51,7 @@ function Home(){
 
 <CategorySection/>
 <ProductGrid/>
-
+<Footer />
    </div>
     )
 }

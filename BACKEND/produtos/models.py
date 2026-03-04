@@ -21,10 +21,12 @@ class Subcategoria(models.Model):
 
 
 class Produto(models.Model):
-    nome = models.CharField(max_length=200)
+    nome = models.CharField(max_length=250)
     preco = models.DecimalField(max_digits=12, decimal_places=2)
     ativo = models.BooleanField(default=False)
     descricao = models.TextField()
+    
+    url_imagem = models.URLField(blank=True, null=True)
 
     subcategoria = models.ForeignKey(
         Subcategoria,
