@@ -2,7 +2,7 @@
     box-sizing: border-box;
     padding: 0;
     margin: 0;
-    transition: all 0.4s ease;
+    transition: 0.4s ease !important;
     font-family: sans-serif;
 }
 
@@ -115,27 +115,28 @@
 }
 
 .heroBanner button {
-    background: #073b00;
-    color: white;
+    background: #15b800;
     padding: 18px 40px;
-    border: 3px solid white;
+    border: 3px solid black;
     border-radius: 12px;
     font-size: 18px;
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease;   
      animation: neonPulseHero 2s infinite alternate;
+     color: black;
 
 }
 
 .heroBanner button:hover {
-    background: #ffffff;
-    color: #111;
-    box-shadow: 0 0 20px #23ca02;
-    border: 3px solid black;
+    box-shadow: 0 0 15px #23ca02;
 
+    transform:translateY(-4px);
+    background-color: rgb(0, 0, 0);
+    color: #23ca02;
+    border: 3px solid #23ca02;
 }
-
+/* 
 @keyframes neonPulseHero {
     0% {
         box-shadow: 0 0 12px #ffffff91,
@@ -145,7 +146,7 @@
         box-shadow: 0 0 12px #2ad300af,
                     0 0 20px #23ca02;
     }
-}
+} */
 
 
 

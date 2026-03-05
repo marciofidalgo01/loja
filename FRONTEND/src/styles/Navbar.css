@@ -17,6 +17,10 @@
     height: 50px;
 }
 
+.carrinho:hover{
+    transform:translateY(-4px);
+}
+
 .filtro{
     display: flex;
     align-items: center;
@@ -58,7 +62,7 @@
     text-decoration: none;
     color: black;
     font-family: sans-serif;
-    transition: background-color 0.3s, color 0.3s;
+    transition: 0.3s;
 }
 
 .zapzap img {
@@ -68,6 +72,7 @@
 .zapzap:hover {
     background-color: rgba(0, 168, 0, 0.877);
     color: white;
+    transform:translateY(-4px);
 }
 
 .zapzap:hover img {

@@ -52,12 +52,13 @@ function Navbar() {
           id="inputPesquisar"
         />
       </div>
-      <a href="#">
+      <a href="https://wa.me/5521992215332?text=Ol%C3%A1%21%20Estou%20entrando%20em%20contato%20atrav%C3%A9s%20do%20site." class="botao-contato" target="_blank">
         <div className="zapzap">
           <img src="./zapzap.png" alt="Zapzap" id="zapImg" />
           Falar no WhatsApp
         </div>
       </a>
+      
 
     </nav>
   );
