@@ -50,7 +50,11 @@ class Produto(models.Model):
         db_index=True
     )
 
-    criado_em = models.DateTimeField(auto_now_add=True)
+    categoria = models.CharField(
+        max_length=50
+        )
+
+    criado_em = models.DateTimeField(auto_now_add=True,null=True)
 
     class Meta:
         ordering = ["-criado_em"]
@@ -71,3 +75,4 @@ class ProdutoImagem(models.Model):
 
     def __str__(self):
         return f"Imagem de {self.produto.nome}"
+    

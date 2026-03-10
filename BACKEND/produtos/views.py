@@ -16,6 +16,8 @@ class ProdutoViewSet(viewsets.ModelViewSet):
         marca = params.get("marca")
         ano = params.get("ano")
         motor = params.get("motor")
+        preco = params.get("preco")
+
 
         if categoria:
             categorias = categoria.split(",")
@@ -33,7 +35,15 @@ class ProdutoViewSet(viewsets.ModelViewSet):
             motores = motor.split(",")
             queryset = queryset.filter(motor__in=motores)
 
+        if preco:
+          min_preco, max_preco = preco.split("-")
+          queryset = queryset.filter(preco__gte=min_preco, preco__lte=max_preco)
+
         return queryset
+
+
+
+
 
 
 class ProdutoImagemViewSet(viewsets.ModelViewSet):

@@ -21,6 +21,13 @@ function toggleOption(filter, value){
 
 setFilters(prev => {
 
+if(filter === "preco"){
+return {
+...prev,
+preco: [value]
+}
+}
+
 const exists = prev[filter].includes(value)
 
 return{
@@ -48,11 +55,6 @@ onSearch()
 
 }
 
-/* ------------------------------
-FUNÇÃO NOVA
-converte filtros em query params
------------------------------- */
-
 function buildQuery(){
 
 const params = new URLSearchParams()
@@ -72,9 +74,6 @@ params.append("ano", filters.ano.join(","))
 if(filters.motor.length > 0){
 params.append("motor", filters.motor.join(","))
 }
-
-//  PREÇO AINDA NÃO IMPLEMENTADO
-// comentado para não quebrar backend
 
 if(filters.preco.length > 0){
 params.append("preco", filters.preco.join(","))
@@ -118,7 +117,7 @@ console.error("Erro ao buscar produtos", error)
 
 }
 
-function Option({filter,value}){
+function Option({filter,value,label}){
 
 const selected = filters[filter].includes(value)
 
@@ -139,7 +138,8 @@ readOnly
 className="inputCheckBoxCategory"
 />
 
-<span>{value}</span>
+<span>{label || value}</span>
+
 
 </div>
 
@@ -266,10 +266,10 @@ onClick={()=>toggleFilter("preco")}
 
 <div className={`options ${openFilter === "preco" ? "open" : ""}`}>
 
-<Option filter="preco" value="Até R$100"/>
-<Option filter="preco" value="R$100 - R$300"/>
-<Option filter="preco" value="R$300 - R$700"/>
-<Option filter="preco" value="R$700+"/>
+<Option filter="preco" value="0-100" label="Até R$100"/>
+<Option filter="preco" value="100-300" label="R$100 - R$300"/>
+<Option filter="preco" value="300-700" label="R$300 - R$700"/>
+<Option filter="preco" value="700-999999" label="R$700+"/>
 
 </div>
 
