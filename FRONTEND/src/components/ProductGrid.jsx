@@ -1,30 +1,43 @@
-import React from "react";
 import "../styles/ProductGrid.css";
 
-import { useEffect, useState } from "react";
+function ProductGrid({ produtos }) {
 
-function ProductGrid() {
-  const [produtos, setProdutos] = useState([]);
+ return (
+  <div className="product-grid">
+   {(produtos || []).map((produto) => (
+      <div key={produto.id} className="product-card">
 
-  useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/produtos/")
-      .then((res) => res.json())
-      .then((data) => setProdutos(data))
-      .catch((err) => console.error(err));
-  }, []);
+        {produto.imagens && produto.imagens.length > 0 && (
+          <img
+            src={produto.imagens[0].url}
+            alt={produto.nome}
+            loading="lazy"
+          />
+        )}
 
-  return (
-    <div className="product-grid">
-      {produtos.map((produto) => (
-        <div key={produto.id} className="product-card">
-          <img src={produto.url_imagem} alt={produto.nome} />
-          <h3>{produto.nome}</h3>
-          <p>R$ {produto.preco}</p>
-          <p>{produto.descricao}</p>
-        </div>
-      ))}
-    </div>
-  );
+        <h3>{produto.nome}</h3>
+
+        {produto.marca && (
+          <p>Marca: {produto.marca.nome}</p>
+        )}
+
+        {produto.categoria && (
+          <p>Categoria: {produto.marca}</p>
+        )}
+
+        <p>
+          {Number(produto.preco).toLocaleString("pt-BR", {
+            style: "currency",
+            currency: "BRL",
+          })}
+        </p>
+
+        <p>{produto.descricao}</p>
+
+      </div>
+    ))}
+  </div>
+);
 }
 
 export default ProductGrid;

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../styles/CategorySection.css";
 
-function CategorySection() {
+function CategorySection({ onSearch }) {
 
 const [openFilter, setOpenFilter] = useState(null)
 
@@ -43,6 +43,78 @@ ano: [],
 motor: [],
 preco: []
 })
+
+onSearch()
+
+}
+
+/* ------------------------------
+FUNÇÃO NOVA
+converte filtros em query params
+------------------------------ */
+
+function buildQuery(){
+
+const params = new URLSearchParams()
+
+if(filters.categoria.length > 0){
+params.append("categoria", filters.categoria.join(","))
+}
+
+if(filters.marca.length > 0){
+params.append("marca", filters.marca.join(","))
+}
+
+if(filters.ano.length > 0){
+params.append("ano", filters.ano.join(","))
+}
+
+if(filters.motor.length > 0){
+params.append("motor", filters.motor.join(","))
+}
+
+//  PREÇO AINDA NÃO IMPLEMENTADO
+// comentado para não quebrar backend
+
+if(filters.preco.length > 0){
+params.append("preco", filters.preco.join(","))
+}
+
+return params.toString()
+
+}
+
+
+async function buscarProdutos(){
+
+try{
+
+
+
+const query = buildQuery()
+
+const response = await fetch(
+`http://127.0.0.1:8000/api/produtos/?${query}`
+)
+
+onSearch(query)
+
+const data = await response.json()
+
+console.log("Produtos filtrados:", data)
+
+/*
+OBS:
+aqui futuramente você deve
+enviar os dados para o componente
+que lista produtos
+*/
+
+}catch(error){
+
+console.error("Erro ao buscar produtos", error)
+
+}
 
 }
 
@@ -204,9 +276,13 @@ onClick={()=>toggleFilter("preco")}
 </div>
 
 </div>
+<br />
 
 
-<button className="filterButton">
+<button
+className="filterButton"
+onClick={buscarProdutos}
+>
 Buscar Peças
 </button>
 

@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import heroImg from "../assets/testeHero.png";
 import "../components/CategorySection"
 import "../components/ProductGrid"
@@ -31,6 +31,34 @@ const textRef = useRef(null);
   };
 
 
+const [produtos, setProdutos] = useState([])
+
+async function buscarProdutos(query=""){
+
+try{
+
+const response = await fetch(
+`http://127.0.0.1:8000/api/produtos/?${query}`
+)
+
+const data = await response.json()
+
+const lista = data.results || data
+
+setProdutos(lista)
+
+}catch(error){
+
+console.error("Erro ao buscar produtos:", error)
+
+}
+
+}
+
+useEffect(()=>{
+buscarProdutos()
+},[])
+
     return(
    <div id="homeDiv">
       <div className="heroBanner"  style={{ backgroundImage: `url(${heroImg})` }}>
@@ -52,8 +80,8 @@ const textRef = useRef(null);
     </div>  
      </div>
 
-<CategorySection/>
-<ProductGrid/>
+<CategorySection onSearch={buscarProdutos}/>
+<ProductGrid produtos={produtos}/>
 <Footer />
    </div>
     )

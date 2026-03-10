@@ -1,42 +1,73 @@
 from django.db import models
 
 
-class Categoria(models.Model):
-    nome = models.CharField(max_length=100)
+class Produto(models.Model):
 
-    def __str__(self):
-        return self.nome
+    nome = models.CharField(max_length=250)
 
+    sku = models.CharField(max_length=50, unique=True)
 
-class Subcategoria(models.Model):
-    nome = models.CharField(max_length=100)
-    categoria = models.ForeignKey(
-        Categoria,
-        on_delete=models.CASCADE,
-        related_name="subcategorias"
+    codigo = models.CharField(
+        max_length=50,
+        unique=True,
+        null=True,
+        blank=True
     )
 
-    def __str__(self):
-        return f"{self.categoria.nome} - {self.nome}"
-
-
-class Produto(models.Model):
-    nome = models.CharField(max_length=250)
     preco = models.DecimalField(max_digits=12, decimal_places=2)
-    ativo = models.BooleanField(default=False)
-    descricao = models.TextField()
-    
-    url_imagem = models.URLField(blank=True, null=True)
 
-    subcategoria = models.ForeignKey(
-        Subcategoria,
-        on_delete=models.SET_NULL,
+    estoque = models.PositiveIntegerField(default=0)
+
+    ativo = models.BooleanField(default=True)
+    destaque = models.BooleanField(default=False)
+
+    descricao = models.TextField()
+
+    peso = models.DecimalField(
+        max_digits=6,
+        decimal_places=2,
+        null=True,
+        blank=True
+    )
+
+    marca = models.CharField(
+        max_length=100,
         null=True,
         blank=True,
-        related_name="produtos"
+        db_index=True
+    )
+
+    ano = models.IntegerField(
+        null=True,
+        blank=True,
+        db_index=True
+    )
+
+    motor = models.CharField(
+        max_length=20,
+        null=True,
+        blank=True,
+        db_index=True
     )
 
     criado_em = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        ordering = ["-criado_em"]
+
     def __str__(self):
-        return self.nome
+        return f"{self.nome} ({self.sku})"
+
+
+class ProdutoImagem(models.Model):
+
+    produto = models.ForeignKey(
+        Produto,
+        on_delete=models.CASCADE,
+        related_name="imagens"
+    )
+
+    url = models.URLField()
+
+    def __str__(self):
+        return f"Imagem de {self.produto.nome}"
