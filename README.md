@@ -1,4 +1,4 @@
-Para rodar o BACKEND do projeto:
+- Para rodar o BACKEND do projeto:
 
 cd BACKEND
 
@@ -14,8 +14,16 @@ python manage.py runserver
 
 
 
-Para rodar o FRONTEND do projeto:
+- Para rodar o FRONTEND do projeto:
 
 npm install
 
 npm run dev
+
+
+
+Para ativar a API de produtos:
+
+python manage.py makemigrations
+
+python manage.py migrate
