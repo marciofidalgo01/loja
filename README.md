@@ -22,7 +22,7 @@ npm run dev
 
 
 
-Para ativar a API de produtos:
+- Para ativar a API de produtos:
 
 python manage.py makemigrations
 
