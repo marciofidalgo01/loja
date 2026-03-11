@@ -1,35 +1,67 @@
 import React from "react";
 import "../styles/ProductModal.css";
-import ProductGrid from "./ProductGrid";
 
-
-function ProductModal({ produto, onClose }) {
+function ProductModal({ produto, onClose, onAddToCart }) {
   if (!produto) return null;
-console.log("clicado")
+
   return (
     <div className="modal" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+
         <button className="close-btn" onClick={onClose}>
           &times;
         </button>
 
-        <h2>{produto.nome}</h2>
+        <h2 className="modal-title">{produto.nome}</h2>
 
-        {produto.imagens && produto.imagens.length > 0 && (
-          <img src={produto.imagens[0].url} alt={produto.nome} />
-        )}
+        <div className="modal-body">
 
-        <p>Marca: {produto.marca}</p>
-        <p>
-          Preço:{" "}
-          {Number(produto.preco).toLocaleString("pt-BR", {
-            style: "currency",
-            currency: "BRL",
-          })}
-        </p>
-        <p>Ano: {produto.ano}</p>
-        <p>Motor: {produto.motor}</p>
-        <p>{produto.descricao}</p>
+          {produto.imagens && produto.imagens.length > 0 && (
+            <img
+              src={produto.imagens[0].url}
+              alt={produto.nome}
+              className="modal-img"
+            />
+          )}
+
+          <div className="modal-info">
+
+<p className="modal-price">
+              {Number(produto.preco).toLocaleString("pt-BR", {
+                style: "currency",
+                currency: "BRL",
+              })}
+            </p>
+
+            <p><strong>Marca:</strong> {produto.marca}</p>
+
+            
+
+            <p><strong>Ano:</strong> {produto.ano}</p>
+
+            <p><strong>Motor:</strong> {produto.motor}</p>
+
+            {produto.descricao && (
+              <p className="modal-description">
+                {produto.descricao}
+              </p>
+            )}
+
+          </div>
+
+        </div>
+
+        <div className="modal-actions">
+
+          <button
+            className="add-cart-btn"
+            onClick={() => onAddToCart?.(produto)}
+          >
+           Adicionar ao carrinho 
+          </button>
+
+        </div>
+
       </div>
     </div>
   );
